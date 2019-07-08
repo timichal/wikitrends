@@ -9,7 +9,7 @@ const request = (url, params = {}) => {
 };
 
 // returns most visited pages in a given month
-const fetchTopPages = async (lang, date, number) => request(`https://wikimedia.org/api/rest_v1/metrics/pageviews/top/${lang}.wikipedia/all-access/${date}/all-days`)
+const fetchTopPages = async (lang, date, number) => request(`https://wikimedia.org/api/rest_v1/metrics/pageviews/top/${lang}.wikipedia/all-access/${date.replace("-", "/")}/all-days`)
   .then(data => data.items[0].articles
     .slice(0, number)
     .reduce((obj, item) => Object.assign(obj, {
@@ -61,7 +61,7 @@ const generateGraphQuery = (lang, items) => {
 };
 
 const lang = window.location.href.split(/[?&]lang=(\w+)&?/g)[1] || "cs";
-const date = window.location.href.split(/[?&]date=([\w/]+)&?/g)[1] || "2019/06";
+const date = window.location.href.split(/[?&]date=([\w-]+)&?/g)[1] || "2019-06";
 const number = 50;
 
 const getIframeURL = async () => {
