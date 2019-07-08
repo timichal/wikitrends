@@ -60,8 +60,8 @@ const generateGraphQuery = (lang, items) => {
   return `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
 };
 
-const lang = "cs";
-const date = "2019/06";
+const lang = window.location.href.split(/[?&]lang=(\w+)&?/g)[1] || "cs";
+const date = window.location.href.split(/[?&]date=([\w/]+)&?/g)[1] || "2019/06";
 const number = 50;
 
 const getIframeURL = async () => {
@@ -73,11 +73,9 @@ const getIframeURL = async () => {
 // frontend
 const displayGraph = async () => {
   const iframe = document.createElement("iframe");
-  iframe.style.width = "80vw";
-  iframe.style.height = "80vh";
   iframe.src = await getIframeURL();
-  const body = document.querySelector("body");
-  body.append(iframe);
+  const graph = document.querySelector("#graph");
+  graph.append(iframe);
 };
 
 displayGraph();
