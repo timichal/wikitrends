@@ -75,6 +75,7 @@ const displayGraph = async () => {
   const iframe = document.createElement("iframe");
   iframe.src = await getIframeURL();
   const graph = document.querySelector("#graph");
+  graph.innerHTML = "";
   graph.append(iframe);
 };
 
